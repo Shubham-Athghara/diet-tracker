@@ -3,7 +3,7 @@
    Enables offline support via caching
    =========================================== */
 
-const CACHE_NAME = 'diet-tracker-v3';
+const CACHE_NAME = 'diet-tracker-v4';
 
 // Files to cache for offline use
 const STATIC_ASSETS = [
