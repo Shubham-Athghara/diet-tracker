@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#4CAF50">
+    <meta name="description" content="Track your daily diet intake with this simple PWA">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥗</text></svg>">
+
+    <title>Diet Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header with streak -->
+        <header class="header">
+            <h1>🥗 Diet Tracker</h1>
+            <div class="streak-container">
+                <span class="streak-icon">🔥</span>
+                <span class="streak-count" id="streakCount">0</span>
+                <span class="streak-label">day streak</span>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tab-nav">
+            <button class="tab-btn active" data-tab="today">Today</button>
+            <button class="tab-btn" data-tab="history">History</button>
+        </nav>
+
+        <!-- Sticky Progress Bar -->
+        <div class="sticky-progress" id="todayProgress">
+            <div class="progress-text">
+                <span id="completedCount">0</span> / <span id="totalCount">0</span> completed
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="overallProgress"></div>
+            </div>
+            <!-- Daily Nutrition Summary -->
+            <div class="nutrition-summary">
+                <div class="nutrition-item">
+                    <span class="nutrition-value" id="totalCalories">0</span>
+                    <span class="nutrition-label">kcal</span>
+                </div>
+                <div class="nutrition-divider"></div>
+                <div class="nutrition-item">
+                    <span class="nutrition-value" id="totalProtein">0</span>
+                    <span class="nutrition-label">g protein</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Today Tab Content -->
+        <main class="main-content tab-content active" id="todayTab">
+            <!-- Water Tracker (Special Section) -->
+            <section class="water-section" id="waterSection">
+                <div class="section-title">💧 Water Intake</div>
+                <div class="water-tracker" id="waterTracker">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+
+            <!-- Food Items -->
+            <section class="food-section">
+                <div class="section-title">🍽️ Food Items</div>
+                <div class="food-list" id="foodList">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+
+            <!-- Add Custom Food Button -->
+            <button class="add-custom-btn" id="addCustomBtn">
+                <span class="plus-icon">+</span>
+                <span>Add Custom Food</span>
+            </button>
+
+            <!-- Completed Items Toggle -->
+            <div class="toggle-container">
+                <label class="toggle-label">
+                    <input type="checkbox" id="showCompleted">
+                    <span class="toggle-switch"></span>
+                    <span>Show Completed Items</span>
+                </label>
+            </div>
+
+            <!-- Completed Items Section -->
+            <section class="completed-section" id="completedSection" style="display: none;">
+                <div class="section-title">✅ Completed</div>
+                <div class="completed-list" id="completedList">
+                    <!-- Rendered by JS -->
+                </div>
+            </section>
+
+            <!-- Export Buttons -->
+            <div class="export-section">
+                <div class="section-title">📤 Export Data</div>
+                <div class="export-buttons">
+                    <button class="export-btn" onclick="exportData('today')">Export Today</button>
+                    <button class="export-btn secondary" onclick="exportData('all')">Export All History</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- History Tab Content -->
+        <div class="tab-content" id="historyTab">
+            <div class="history-container">
+                <div class="history-header">
+                    <button class="nav-btn" id="prevDay">←</button>
+                    <span class="history-date" id="historyDate">Select a date</span>
+                    <button class="nav-btn" id="nextDay">→</button>
+                </div>
+                <div class="history-content" id="historyContent">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Custom Food Modal -->
+        <div class="modal-overlay" id="customFoodModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Add Custom Food</h2>
+                    <button class="close-btn" id="closeModal">✕</button>
+                </div>
+                <form id="customFoodForm">
+                    <div class="form-group">
+                        <label for="foodName">Food Name *</label>
+                        <input type="text" id="foodName" required placeholder="e.g., Chicken Breast">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="foodCalories">Calories (kcal) *</label>
+                            <input type="number" id="foodCalories" required min="0" placeholder="150">
+                        </div>
+                        <div class="form-group">
+                            <label for="foodProtein">Protein (g) *</label>
+                            <input type="number" id="foodProtein" required min="0" step="0.1" placeholder="25">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="foodPortion">Portion (optional)</label>
+                        <input type="text" id="foodPortion" placeholder="e.g., 100g, 1 cup">
+                    </div>
+                    <button type="submit" class="submit-btn">Add Food</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Install Prompt -->
+        <div class="install-prompt" id="installPrompt" style="display: none;">
+            <span>Install this app for offline access</span>
+            <button id="installBtn">Install</button>
+            <button id="dismissBtn">✕</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
