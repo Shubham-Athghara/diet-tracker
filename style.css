@@ -290,7 +290,7 @@ body {
 
 /* =================== MAIN CONTENT =================== */
 .main-content {
-    padding: 20px 8px 100px;
+    padding: 20px 16px 100px;
 }
 
 .section-title {
@@ -420,19 +420,29 @@ body {
 /* =================== FOOD CARDS =================== */
 .food-section {
     margin-bottom: 20px;
+    padding: 0 8px;
 }
 
 .food-list {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+}
+
+/* For very small screens */
+@media (max-width: 360px) {
+    .food-list {
+        grid-template-columns: 1fr !important;
+    }
 }
 
 .food-card {
-    margin: 0 4px;  
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     background: var(--card);
     border-radius: var(--radius);
-    padding: 18px;
+    padding: 16px;
     box-shadow: var(--shadow);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     animation: slideUp 0.4s ease backwards;
@@ -922,9 +932,15 @@ body {
 }
 
 .history-items {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
+}
+
+@media (max-width: 400px) {
+    .history-items {
+        grid-template-columns: 1fr;
+    }
 }
 
 .history-item {
